@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Statistics = (props) => {
-    console.log(props)
     return (
         <div className="statistic-wrap">
             <h2>Statistics</h2>

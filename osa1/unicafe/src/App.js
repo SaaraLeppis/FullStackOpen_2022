@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Statistics from './Statistics';
 
 
 const App = () => {
@@ -6,7 +7,6 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const [count, setCount] = useState(0);
-  let countAll;
 
   const handleGood = () => {
     setCount(count + 1);
@@ -24,7 +24,6 @@ const App = () => {
     return count;
   };
   const average = () => {
-    console.log('average', countAll, count)
     if (count === 0) {
       return '-';
     } else {
@@ -50,16 +49,11 @@ const App = () => {
           <button onClick={handleBad}>bad</button>
         </div>
       </div>
-      <div className="statistic-wrap">
-        <h2>Statistics</h2>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all()}</p>
-        <p>average {average()}</p>
-        <p>positive {positive()} %</p>
-      </div>
-    </div>
+
+      <Statistics good={good} neutral={neutral} bad={bad} all={all()} average={average()} positive={positive()} />
+
+
+    </div >
   );
 };
 

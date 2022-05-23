@@ -10,7 +10,8 @@ komponentit omassa kansiossa (src/components)
 
 Table HTML
 
-<table> <tbody> <tr> <td>
-(if header, use <tr> instead of <td>)
+\<table> \<tbody> \<tr> \<td>
+(if header, use \<th> instead of \<td>)
 colspan/rowspan=""
-<colgroup> <col><col span="2"> etc
+
+\<colgroup> \<col>\<col span="2"> etc

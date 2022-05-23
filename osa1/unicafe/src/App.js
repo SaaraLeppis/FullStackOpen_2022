@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Statistics from './components/Statistics';
+import Button from './components/Button';
 
 
 const App = () => {
@@ -6,7 +8,6 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const [count, setCount] = useState(0);
-  let countAll;
 
   const handleGood = () => {
     setCount(count + 1);
@@ -24,7 +25,6 @@ const App = () => {
     return count;
   };
   const average = () => {
-    console.log('average', countAll, count)
     if (count === 0) {
       return '-';
     } else {
@@ -45,21 +45,19 @@ const App = () => {
       <div className='feedback-wrap'>
         <h2>Give feedback</h2>
         <div className='buttons'>
-          <button onClick={handleGood}>good</button>
-          <button onClick={handleNeutral}>neutral</button>
-          <button onClick={handleBad}>bad</button>
+          <Button
+            handleClick={handleGood}
+            text='good' />
+          <Button
+            handleClick={handleNeutral}
+            text='neutral' />
+          <Button
+            handleClick={handleBad}
+            text='bad' />
         </div>
       </div>
-      <div className="statistic-wrap">
-        <h2>Statistics</h2>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {all()}</p>
-        <p>average {average()}</p>
-        <p>positive {positive()} %</p>
-      </div>
-    </div>
+      <Statistics good={good} neutral={neutral} bad={bad} all={all()} average={average()} positive={positive()} count={count} />
+    </div >
   );
 };
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Statistics from './Statistics';
-import Button from './Button';
+import Statistics from './components/Statistics';
+import Button from './components/Button';
 
 
 const App = () => {

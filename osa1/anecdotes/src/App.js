@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Button from './components/Button';
 
 const App = () => {
 
@@ -12,19 +13,51 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
     'The best way to get a project done faster is to start sooner',
   ];
+  //states 
   const [selected, setSelected] = useState(0);
+  const [votesList, setVotesList] = useState([]);
+  const [voteCalculator, setVoteCalculator] = useState(0);
+  const [mostVoted, setMostVoted] = useState(null);
 
+  //on load create and fill the votes list with 0
+  useEffect(() => {
+    const n = anecdotes.length;
+    const zeroList = Array(n).fill(0);
+    setVotesList(zeroList);
+  }, []);
+
+  //selecting random anecdote 
   const selectHandler = () => {
-    console.log(anecdotes.length)
     const randomNumber = Math.floor(Math.random() * anecdotes.length);
-    console.log(randomNumber);
     setSelected(randomNumber);
-  }
+  };
+
+  //handle vote and calculate votes 
+  const voteHandler = () => {
+    const newVotes = [...votesList];
+    newVotes[selected] += 1;
+    setVotesList(newVotes);
+    setVoteCalculator(voteCalculator + 1);
+  };
+
+  //when votes added index of most voted set 
+  useEffect(() => {
+    const indexOfMostVoted = votesList.indexOf(Math.max(...votesList));
+    setMostVoted(indexOfMostVoted);
+  }, [voteCalculator]);
 
   return (
     <div className='anecdote-wrapper'>
       {anecdotes[selected]}
-      <button onClick={selectHandler}>next anecdote</button>
+      <div className='buttons'>
+        <Button handleClick={voteHandler} name="vote" />
+        <Button handleClick={selectHandler} name="next anecdote" />
+      </div>
+      {voteCalculator !== 0 &&
+        <div className='most-voted'>
+          <p>{anecdotes[mostVoted]}</p>
+        </div>
+      }
     </div>
   );
 }

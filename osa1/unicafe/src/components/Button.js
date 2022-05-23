@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Button = (props) => {
+const Button = ({ handleClick, text }) => {
     return (
-        <button onClick={props.handleClick}>{props.text}</button>
-    );
+        <button onClick={handleClick}>{text}</button>
+    )
 };
 
 export default Button;

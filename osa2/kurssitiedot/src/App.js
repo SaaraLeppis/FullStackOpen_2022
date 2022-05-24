@@ -22,20 +22,20 @@ const App = () => {
         id: 3
       },
       {
-        name: 'Redux is great',
-        exercises: 12,
+        name: 'Redux is awesome',
+        exercises: 1,
         id: 4
       },
       {
         name: 'Magic can happen',
-        exercises: 10,
+        exercises: 4,
         id: 5
       }
     ]
   }
 
   return (
-    <div>
+    <div className='course-wrapper'>
       <Course course={course} />
     </div>
   )

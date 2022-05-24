@@ -4,7 +4,7 @@ import Content from './Content';
 
 const Course = ({ course }) => {
     return (
-        <div>
+        <div className='course'>
             <Header name={course.name} />
             <Content parts={course.parts} />
         </div>

@@ -1,11 +1,44 @@
 import './index.css';
+import Course from './components/Course';
 
-function App() {
+const App = () => {
+  const course = {
+    name: 'Half Stack application development',
+    id: 1,
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      },
+      {
+        name: 'Redux is great',
+        exercises: 12,
+        id: 4
+      },
+      {
+        name: 'Magic can happen',
+        exercises: 10,
+        id: 5
+      }
+    ]
+  }
+
   return (
-    <div className="App">
-      hello app
+    <div>
+      <Course course={course} />
     </div>
-  );
+  )
 }
 
 export default App;

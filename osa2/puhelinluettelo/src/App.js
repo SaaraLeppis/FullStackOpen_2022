@@ -3,9 +3,10 @@ import { useState } from 'react'
 const App = () => {
 
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1231244' }
   ]);
   const [newName, setNewName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const ifNotInList = (name) => {
     for (let i = 0; i < persons.length; i++) {
@@ -22,17 +23,21 @@ const App = () => {
     event.preventDefault();
     // check if name in list already
     if (ifNotInList(newName)) {
-      setPersons([...persons, { name: newName }]);
+      setPersons([...persons, { name: newName, number: phoneNumber }]);
       alert(`${newName} was added`);
     }
     else {
       alert(`${newName} is already in list`)
     }
-    setNewName('')
+    setNewName('');
+    setPhoneNumber('')
   }
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
+  }
+  const handleNumberChange = (event) => {
+    setPhoneNumber(event.target.value);
   }
 
   return (
@@ -46,6 +51,11 @@ const App = () => {
             type="text"
             value={newName}
             onChange={handleNameChange} />
+          number:
+          <input
+            type='text'
+            value={phoneNumber}
+            onChange={handleNumberChange} />
         </div>
         <div>
           <button type="submit">add</button>
@@ -54,7 +64,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <ul className='numbers'>
-        {persons.map(person => <li key={person.name}>{person.name}</li>)}
+        {persons.map(person => <li key={person.name}>{person.name} {person.number}</li>)}
       </ul>
     </div>
   )

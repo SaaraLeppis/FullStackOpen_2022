@@ -45,7 +45,7 @@ const App = () => {
       <h2>Phonebook</h2>
 
       <form onSubmit={handleAddName}>
-        <div>
+        <div className='inputs-wrapper'>
           name:
           <input
             type="text"

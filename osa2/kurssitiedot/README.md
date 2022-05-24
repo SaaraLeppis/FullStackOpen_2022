@@ -11,8 +11,9 @@ notes.map((note) => <li>{note.content}</li>);
 ```
 
 (key needed)
+
 **reduce**
 
 ```js
-const sum=list.reduce(prev,current)=>prev+current, initial
+const sum = list.reduce(prev,current) => prev + current, initial
 ```

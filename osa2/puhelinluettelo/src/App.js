@@ -1,23 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
 
+import axios from 'axios';
+
 const App = () => {
 
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-1231244' }
-  ]);
+  const url = 'http://localhost:3001/persons';
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [filter, setFilter] = useState('');
+  const [nameFilter, setNameFilter] = useState('');
+
+
+  useEffect(() => {
+    axios
+      .get(url).then(response => {
+        setPersons(response.data)
+      })
+  }, []);
 
   const ifNotInList = (name) => {
     for (let i = 0; i < persons.length; i++) {
       if (persons[i].name === name) {
         return false
       }
-    } return true;
+    } return true
   };
 
   const handleAddName = (event) => {
@@ -31,9 +40,9 @@ const App = () => {
     else {
       alert(`${newName} is already in list`)
     }
-    setNewName('');
+    setNewName('')
     setPhoneNumber('')
-  }
+  };
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -42,7 +51,7 @@ const App = () => {
     setPhoneNumber(event.target.value)
   };
   const handleFilter = (event) => {
-    setFilter(event.target.value);
+    setNameFilter(event.target.value)
   };
 
   return (
@@ -50,7 +59,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter
         filterChange={handleFilter}
-        filter={filter}
+        nameFilter={nameFilter}
       />
       <h2>Add a new</h2>
       <PersonForm
@@ -62,9 +71,9 @@ const App = () => {
 
       <Persons
         data={persons}
-        filter={filter} />
+        filter={nameFilter} />
     </div >
   )
-}
+};
 
 export default App

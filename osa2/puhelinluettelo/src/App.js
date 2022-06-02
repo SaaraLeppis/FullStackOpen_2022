@@ -44,47 +44,51 @@ const App = () => {
   const ifNotInList = (name) => {
     for (let i = 0; i < persons.length; i++) {
       if (persons[i].name === name) {
-        // return false
         existingNameId = persons[i].id;
         return false
       }
     } return true
   };
+  const addNewContact = (newData) => {
+    phonebookService
+      .create(newData)
+      .then(data => {
+        console.log(data, 'data')
+        setPersons([...persons, data]);
+      })
+      .catch(err => {
+        alert(err)
+      })
+    alert(`${newName} was added`);
+  }
 
-  // adding 
+  const updateContact = (updateData) => {
+    if (window.confirm(`${updateData.name} is already added to phonebook, replace the old number with new one?`)) {
+      phonebookService
+        .update(updateData.id, updateData)
+        .then(some => {
+          console.log(some, 'in create')
+          setPersons(persons.map(person => person.id !== updateData.id ? person : updateData))
+        })
+    }
+  }
+
   const handleAddName = (event) => {
     event.preventDefault();
-    // check if name in list already
-    // if not, create new  
     if (ifNotInList(newName)) {
       const newData = {
         name: newName,
         number: phoneNumber
       }
-      phonebookService
-        .create(newData)
-        .then(data => {
-          console.log(data, 'data')
-          setPersons([...persons, data]);
-        })
-        .catch(err => {
-          alert(err)
-        })
-      alert(`${newName} was added`);
+      addNewContact(newData)
     }
     else {
-      alert(`${newName} is already in list`)
       const newObject = {
         name: newName,
         number: phoneNumber,
         id: existingNameId
       }
-      phonebookService
-        .update(existingNameId, newObject)
-        .then(some => {
-          console.log(some, 'in create')
-          setPersons(persons.map(person => person.id !== existingNameId ? person : newObject))
-        })
+      updateContact(newObject);
     }
     setNewName('')
     setPhoneNumber('')
@@ -101,7 +105,6 @@ const App = () => {
   };
 
   const handleRemove = (event) => {
-    console.log('hep', event.target.name);
     event.preventDefault();
     if (
       window.confirm(`Delete ${event.target.name}`)) {

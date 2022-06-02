@@ -52,3 +52,13 @@ button:hover{
 li{
   list-style: none;
 }
+
+.error{
+  width: 50vw; 
+  padding:10px; 
+  margin-bottom: 10px;
+  color: rgb(16, 82, 16);
+  border: 2px solid chartreuse; 
+  background: lightcyan;
+  border-radius: 5px;
+}

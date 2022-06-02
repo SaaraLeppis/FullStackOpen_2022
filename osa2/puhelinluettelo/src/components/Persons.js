@@ -1,10 +1,10 @@
 import React from 'react';
 import Person from './Person';
 
-const Persons = ({ data, filter }) => {
+const Persons = ({ data, nameFilter, handleRemove }) => {
     return (
         <ul className='numbers'>
-            <Person data={data} filter={filter} />
+            <Person data={data} nameFilter={nameFilter} handleRemove={handleRemove} />
         </ul>
     );
 };

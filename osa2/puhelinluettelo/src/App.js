@@ -4,6 +4,7 @@ import axios from 'axios';
 import Persons from './components/Persons';
 import PersonForm from './components/PersonForm';
 import Filter from './components/Filter';
+import Notification from './components/Notification';
 
 import phonebookService from './services/numbers';
 
@@ -13,20 +14,9 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [nameFilter, setNameFilter] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
   let existingNameId = 0;
-
-  // const updateList = () => {
-  //   numbersService
-  //     .getAll()
-  //     .then(phoneBookContent => {
-  //       console.log(phoneBookContent, 'pbc');
-  //       setPersons(phoneBookContent)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
 
   //on load get numbers from db 
   useEffect(() => {
@@ -40,7 +30,6 @@ const App = () => {
       })
   }, []);
 
-
   const ifNotInList = (name) => {
     for (let i = 0; i < persons.length; i++) {
       if (persons[i].name === name) {
@@ -49,6 +38,7 @@ const App = () => {
       }
     } return true
   };
+
   const addNewContact = (newData) => {
     phonebookService
       .create(newData)
@@ -59,7 +49,8 @@ const App = () => {
       .catch(err => {
         alert(err)
       })
-    alert(`${newName} was added`);
+    setErrorMessage(`Added ${newData.name}`);
+    setTimeout(() => { setErrorMessage(null) }, 2000);
   }
 
   const updateContact = (updateData) => {
@@ -70,7 +61,12 @@ const App = () => {
           console.log(some, 'in create')
           setPersons(persons.map(person => person.id !== updateData.id ? person : updateData))
         })
+        .catch(err => {
+          alert(err)
+        })
     }
+    setErrorMessage(`Updated ${updateData.name}`);
+    setTimeout(() => { setErrorMessage(null) }, 2000);
   }
 
   const handleAddName = (event) => {
@@ -111,6 +107,9 @@ const App = () => {
       phonebookService
         .remove(event.target.value);
 
+      setErrorMessage(`Deleted ${event.target.name}`);
+      setTimeout(() => { setErrorMessage(null) }, 2000);
+
       setPersons(
         persons.filter((person) => {
           return person.name !== event.target.name;
@@ -122,6 +121,7 @@ const App = () => {
   return (
     <div className='phonebook-wrapper'>
       <h2>Phonebook</h2>
+      <Notification message={errorMessage} />
       <Filter
         filterChange={handleFilter}
         nameFilter={nameFilter} />

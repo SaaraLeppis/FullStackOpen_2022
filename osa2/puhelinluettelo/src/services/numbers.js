@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // const baseUrl = 'http://localhost:3001/api/persons/';
-const baseUrl = 'https://muneka-deploy.herokuapp.com/api/persons/';
+const baseUrl = 'https://muneka-deploy.herokuapp.com/api/persons';
 
 
 const getAll = () => {
@@ -17,7 +17,7 @@ const create = newData => {
 };
 
 const remove = id => {
-    const request = axios.delete(baseUrl + id);
+    const request = axios.delete(`${baseUrl}/${id}`);
     return request.then(response => response.data)
 
 }

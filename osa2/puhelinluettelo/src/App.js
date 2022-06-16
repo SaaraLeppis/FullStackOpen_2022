@@ -9,7 +9,7 @@ import Notification from './components/Notification';
 import phonebookService from './services/numbers';
 
 const App = () => {
-  const url = 'http://localhost:3001/persons';
+  const url = 'http://localhost:3001/persons/';
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -60,7 +60,6 @@ const App = () => {
       phonebookService
         .update(updateData.id, updateData)
         .then(some => {
-          console.log(some, 'in create')
           setPersons(persons.map(person => person.id !== updateData.id ? person : updateData))
         })
         .catch(err => {
@@ -78,7 +77,6 @@ const App = () => {
         name: newName,
         number: phoneNumber
       }
-      console.log(newData, 'newData')
       addNewContact(newData)
     }
     else {

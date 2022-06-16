@@ -43,13 +43,15 @@ const App = () => {
     phonebookService
       .create(newData)
       .then(data => {
-        console.log(data, 'data')
         setPersons([...persons, data]);
+        setErrorMessage(`Added ${newData.name}`);
       })
       .catch(err => {
-        alert(err)
+        const addingError = err.response.data.error;
+        setErrorMessage(addingError);
+        // alert(err)
       })
-    setErrorMessage(`Added ${newData.name}`);
+
     setTimeout(() => { setErrorMessage(null) }, 2000);
   }
 
@@ -66,7 +68,7 @@ const App = () => {
         })
     }
     setErrorMessage(`Updated ${updateData.name}`);
-    setTimeout(() => { setErrorMessage(null) }, 2000);
+    setTimeout(() => { setErrorMessage(null) }, 2500);
   }
 
   const handleAddName = (event) => {
@@ -76,6 +78,7 @@ const App = () => {
         name: newName,
         number: phoneNumber
       }
+      console.log(newData, 'newData')
       addNewContact(newData)
     }
     else {

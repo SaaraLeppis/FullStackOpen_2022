@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Person = ({ data, nameFilter, handleRemove }) => {
+    console.log(data, 'in Person')
     return (
         <>
             {data.filter(item => nameFilter === '' ||

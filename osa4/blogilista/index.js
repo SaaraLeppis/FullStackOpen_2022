@@ -1,23 +1,24 @@
-require('dotenv').config()
+// require('dotenv').config()
+// const mongoose = require('mongoose')
+
 const http = require('http')
 const express = require('express')
-const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
+const app = express()
 
+const Blog = require('./models/blogs')
 
+// const blogSchema = mongoose.Schema({
+//   title: String,
+//   author: String,
+//   url: String,
+//   likes: Number
+// })
 
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
-})
+// const Blog = mongoose.model('Blog', blogSchema)
 
-const Blog = mongoose.model('Blog', blogSchema)
-
-const mongoUrl = process.env.MONGODB_URI;
-mongoose.connect(mongoUrl)
+// const mongoUrl = process.env.MONGODB_URI;
+// mongoose.connect(mongoUrl)
 
 app.use(cors())
 app.use(express.json())

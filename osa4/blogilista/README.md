@@ -32,3 +32,7 @@ can be run
 npm run dev
 ```
 (full path would be node.modules/.bin/nodemon)
+
+## Moduls
+
+- **controllers** used for the routes

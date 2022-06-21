@@ -1,7 +1,6 @@
 const listHelper = require('../utils/list_helper')
 const blogList = require('../utils/blockStorage')
 //blogList.blogs is the array of ready test list
-console.log(blogList.blogs)
 
 describe('Testing total likes', () => {
 

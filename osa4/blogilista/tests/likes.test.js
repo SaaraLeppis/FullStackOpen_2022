@@ -28,3 +28,30 @@ describe('Testing total likes', () => {
     expect(result).toBe(36)
   })
 })
+describe("Testing favourite blog", () => {
+  const listWithOneBlog = [
+    {
+      _id: "5a422a851b54a676234d17f7",
+      title: "React patterns",
+      author: "Michael Chan",
+      url: "https://reactpatterns.com/",
+      likes: 7,
+      __v: 0
+    }
+  ]
+  test('Test 1: one blog ', () => {
+    const result = listHelper.favourite(listWithOneBlog)
+    expect(result).toEqual(
+      {
+        title: "React patterns",
+        author: "Michael Chan",
+        likes: 7
+      }
+    )
+  })
+
+  test('Test 2: longer list returns correct information', () => {
+    const result = listHelper.favourite(blogList.blogs)
+    expect(result).toEqual({ title: blogList.blogs[2].title, author: blogList.blogs[2].author, likes: blogList.blogs[2].likes })
+  })
+})

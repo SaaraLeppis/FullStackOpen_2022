@@ -3,20 +3,10 @@ const dummy = (blogs) => {
 }
 
 const likes = (blogs) => {
-  // let likeCounter = 0
   if (blogs.length === 0) {
     return 0
   }
-  else if (blogs.length === 1) {
-    return blogs[0].likes
-  }
   else {
-    // < < forEach -stucture > > 
-    // blogs.forEach((blog) => {
-    //   likeCounter += blog.likes
-    // });
-    // return likeCounter
-
     // < < reduce -structure > > 
     let sumOfLikes = blogs.reduce(
       (previous, current) => previous + current.likes
@@ -26,4 +16,12 @@ const likes = (blogs) => {
   }
 }
 
-module.exports = { dummy, likes }
+const favourite = (blogs) => {
+  const blogWithMostLikes = blogs.reduce((prev, curr) => {
+    return prev.likes > curr.likes ? prev : curr;
+  })
+  return ({ title: blogWithMostLikes.title, author: blogWithMostLikes.author, likes: blogWithMostLikes.likes })
+}
+
+
+module.exports = { dummy, likes, favourite }

@@ -63,3 +63,17 @@ add to end of package.json:
     "testEnvironment":"node"
   }
 ```
+
+## Testing backend - supertest
+
+```shell
+npm install --save-dev cross-env
+```
+
+to work also in windows
+
+Installing supertest
+
+```shell
+npm install --save-dev supertest
+```

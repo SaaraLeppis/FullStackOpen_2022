@@ -48,6 +48,10 @@ describe('Bloglist tests', () => {
     expect(response.body).toHaveLength(testBlogs.length)
 
   })
+  test('Test 3: check that blog id returned as id instead of _id', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body[0].id).toBeDefined()
+  })
 })
 
 afterAll(() => {

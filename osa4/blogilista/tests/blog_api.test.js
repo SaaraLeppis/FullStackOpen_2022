@@ -53,6 +53,29 @@ describe('Bloglist tests', () => {
     expect(response.body[0].id).toBeDefined()
   })
 })
+describe('Bloglist tests for POST', () => {
+  test('Test 1: check that qty of blogs increased', async () => {
+    const additionalBlog = {
+      title: 'Witches and wizards',
+      author: 'K.J. Lingrow',
+      url: 'www.google.ww',
+      likes: 8
+    }
+
+    await api
+      .post('/api/blogs')
+      .send(additionalBlog)
+      .expect(201)
+
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(testBlogs.length + 1)
+
+  })
+  // test('Test 2: check that correct blog inserted', async () => {
+
+  // })
+
+})
 
 afterAll(() => {
   mongoose.connection.close()

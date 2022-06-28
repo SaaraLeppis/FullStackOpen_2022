@@ -72,8 +72,22 @@ npm install --save-dev cross-env
 
 to work also in windows
 
-Installing supertest
+### Installing supertest
 
 ```shell
 npm install --save-dev supertest
+```
+
+### To get rid of try-catch
+
+Installing express-async-errors
+
+```shell
+npm install express-async-errors
+```
+
+Add to app.js
+
+```js
+require("express-async-errors");
 ```

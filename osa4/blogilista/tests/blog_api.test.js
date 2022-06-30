@@ -1,25 +1,12 @@
 const mongoose = require('mongoose')
+const helper = require('./test_helper')
 const supertest = require('supertest')
-const { response } = require('../app')
 const app = require('../app')
 const { blogs } = require('../utils/blockStorage')
 const Blog = require('../models/blogs')
 
 const api = supertest(app)
-const testBlogs = [
-  {
-    title: 'House Ghosts seacrets',
-    author: 'Nick',
-    url: 'www.porpington.hp',
-    likes: 1492
-  },
-  {
-    title: 'Best paths in Forest of Dean',
-    author: 'R. Hagrid',
-    url: 'www.magicalCreatures.hp',
-    likes: 2
-  }
-]
+
 beforeEach(async () => {
   // ** alternative 1 ** 
   // await Blog.deleteMany({})
@@ -33,7 +20,9 @@ beforeEach(async () => {
   // console.log('second saved')
   // ** alternative 2 ** with mongoose method 'insertMany
   await Blog.deleteMany({})
-  await Blog.insertMany(testBlogs)
+  await Blog.insertMany(helper.testBlogs)
+  // await Blog.insertMany(testBlogs)
+
 })
 
 describe('Bloglist tests', () => {
@@ -44,15 +33,15 @@ describe('Bloglist tests', () => {
       .expect('Content-Type', /application\/json/)
   })
   test('Test 2: correct amount of blogs returned', async () => {
-    const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(testBlogs.length)
-
+    const response = await helper.blogsInDb()
+    expect(response).toHaveLength(helper.testBlogs.length)
   })
   test('Test 3: check that blog id returned as id instead of _id', async () => {
-    const response = await api.get('/api/blogs')
-    expect(response.body[0].id).toBeDefined()
+    const response = await helper.blogsInDb()
+    expect(response[0].id).toBeDefined()
   })
 })
+
 describe('Bloglist tests for POST', () => {
   const additionalBlog = {
     title: 'Witches and wizards',
@@ -66,32 +55,33 @@ describe('Bloglist tests for POST', () => {
       .send(additionalBlog)
       .expect(201)
 
-    const response = await api.get('/api/blogs')
-    expect(response.body).toHaveLength(testBlogs.length + 1)
+    const response = await helper.blogsInDb()
+    expect(response).toHaveLength(helper.testBlogs.length + 1)
   })
   test('Test 2: check that new blog is added', async () => {
     await api
       .post('/api/blogs')
       .send(additionalBlog)
 
-    const response = await api.get('/api/blogs')
-    const contents = response.body.map(item => item.title)
+    const response = await helper.blogsInDb()
+    const contents = response.map(item => item.title)
     expect(contents).toContain(additionalBlog.title)
   })
 })
+
 describe('Bloglist tests for DELETE', () => {
   test('Test 1: if id is valid, status code 204 is given and list length is shorter', async () => {
-    const response = await api.get('/api/blogs')
-    const blogToDelete = response.body[0]
+    const response = await helper.blogsInDb()
+    const blogToDelete = response[0]
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
       .expect(204)
 
-    const blogsAfterDelete = await api.get('/api/blogs')
-    expect(blogsAfterDelete.body).toHaveLength(testBlogs.length - 1)
+    const blogsAfterDelete = await helper.blogsInDb()
+    expect(blogsAfterDelete).toHaveLength(helper.testBlogs.length - 1)
   })
-
 })
+
 afterAll(() => {
   mongoose.connection.close()
 })

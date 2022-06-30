@@ -81,6 +81,21 @@ describe('Bloglist tests for DELETE', () => {
     expect(blogsAfterDelete).toHaveLength(helper.testBlogs.length - 1)
   })
 })
+describe('Bloglist tests for update', () => {
+  test('Test 1: gives status code 204 and likes are updated', async () => {
+    const response = await helper.blogsInDb()
+    const blogToUpdate = response[0]
+    const updateBlog = helper.testBlogs[0]
+    const initialLikes = updateBlog.likes
+    updateBlog.likes += 2
+    await api
+      .put(`/api/blogs/${blogToUpdate.id}`)
+      .send(updateBlog)
+      .expect(204)
+    const blogsAfterUpdate = await helper.blogsInDb()
+    expect(blogsAfterUpdate[0].likes).toBe(initialLikes + 2)
+  })
+})
 
 afterAll(() => {
   mongoose.connection.close()

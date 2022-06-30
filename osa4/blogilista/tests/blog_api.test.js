@@ -54,14 +54,13 @@ describe('Bloglist tests', () => {
   })
 })
 describe('Bloglist tests for POST', () => {
+  const additionalBlog = {
+    title: 'Witches and wizards',
+    author: 'K.J. Lingrow',
+    url: 'www.google.ww',
+    likes: 8
+  }
   test('Test 1: check that qty of blogs increased', async () => {
-    const additionalBlog = {
-      title: 'Witches and wizards',
-      author: 'K.J. Lingrow',
-      url: 'www.google.ww',
-      likes: 8
-    }
-
     await api
       .post('/api/blogs')
       .send(additionalBlog)
@@ -69,14 +68,30 @@ describe('Bloglist tests for POST', () => {
 
     const response = await api.get('/api/blogs')
     expect(response.body).toHaveLength(testBlogs.length + 1)
-
   })
-  // test('Test 2: check that correct blog inserted', async () => {
+  test('Test 2: check that new blog is added', async () => {
+    await api
+      .post('/api/blogs')
+      .send(additionalBlog)
 
-  // })
+    const response = await api.get('/api/blogs')
+    const contents = response.body.map(item => item.title)
+    expect(contents).toContain(additionalBlog.title)
+  })
+})
+describe('Bloglist tests for DELETE', () => {
+  test('Test 1: if id is valid, status code 204 is given and list length is shorter', async () => {
+    const response = await api.get('/api/blogs')
+    const blogToDelete = response.body[0]
+    await api
+      .delete(`/api/blogs/${blogToDelete.id}`)
+      .expect(204)
+
+    const blogsAfterDelete = await api.get('/api/blogs')
+    expect(blogsAfterDelete.body).toHaveLength(testBlogs.length - 1)
+  })
 
 })
-
 afterAll(() => {
   mongoose.connection.close()
 })

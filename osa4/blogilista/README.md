@@ -91,3 +91,11 @@ Add to app.js
 ```js
 require("express-async-errors");
 ```
+
+## Creating users and passwords
+
+### to hash passwords
+
+```shell
+npm install brypt
+```

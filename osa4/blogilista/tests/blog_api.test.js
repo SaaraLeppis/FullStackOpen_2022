@@ -103,21 +103,18 @@ describe('User tests', () => {
   beforeEach(async () => {
     await User.deleteMany({})
     const passwordHash = await bcrypt.hash('sekret', 10)
-    const user = new User({ username: 'testUser', passwordHash })
+    const user = new User({ username: 'testUser', name: "Mad User", passwordHash })
 
     await user.save()
   })
 
   test('Test 1: creation succeeds with new username', async () => {
     const usersAtStart = await helper.usersInDb()
-    console.log(usersAtStart)
-
     const newUser = {
       username: 'sleppi',
-      name: 'Saara Leppis',
+      name: 'SaaraLeppis',
       password: 'passIt',
     }
-
 
     await api
       .post('/api/users')
@@ -132,8 +129,6 @@ describe('User tests', () => {
     expect(usernames).toContain(newUser.username)
   })
   test('Test 2: creation fails with proper statuscode and message if username already taken', async () => {
-    const usersAtStart = await helper.usersInDb()
-
     const newUser = {
       username: 'testUser',
       name: 'My Name',
@@ -147,9 +142,49 @@ describe('User tests', () => {
       .expect('Content-Type', /application\/json/)
 
     expect(result.body.error).toContain('username must be unique')
+  })
+  test('Test 3: too short username not accepted ', async () => {
+    const shortUsername = {
+      username: 'My',
+      name: 'Mymmeli',
+      password: 'Muumilaakso'
+    }
+    const result = await api
+      .post('/api/users')
+      .send(shortUsername)
+      .expect(400)
 
-    const usersAtEnd = await helper.usersInDb()
-    expect(usersAtEnd).toHaveLength(usersAtStart.length)
+    expect(result.body.error).toContain('is shorter than the minimum allowed length')
+  })
+  test('Test 4: too short password not accepted', async () => {
+    const shortPassword = {
+      username: 'Nipa',
+      name: 'Nipsu',
+      password: 'NN'
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(shortPassword)
+      .expect(400)
+
+    expect(result.body.error).toContain('password must be at least 3 characters')
+  })
+  test('Test 5:creation fails with proper statuscode and message if name already taken', async () => {
+
+    const newUser = {
+      username: 'Some User',
+      name: 'Mad User',
+      password: 'DamIt',
+    }
+
+    const result = await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+
+    expect(result.body.error).toContain('name must be unique')
   })
 })
 

@@ -97,5 +97,5 @@ require("express-async-errors");
 ### to hash passwords
 
 ```shell
-npm install brypt
+npm install bcrypt
 ```

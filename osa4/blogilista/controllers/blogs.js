@@ -1,7 +1,7 @@
-
 require('express-async-errors')
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blogs')
+const User = require('../models/users')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({})

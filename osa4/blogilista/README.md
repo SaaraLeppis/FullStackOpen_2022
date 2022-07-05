@@ -91,3 +91,22 @@ Add to app.js
 ```js
 require("express-async-errors");
 ```
+
+## Creating users and passwords
+
+### to hash passwords
+
+```shell
+npm install bcrypt
+```
+
+### JSON Web Tokens
+
+```shell
+npm install jsonwebtoken
+```
+
+[About JSON Web Token](https://github.com/auth0/node-jsonwebtoken)
+[JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.](https://jwt.io/)
+
+set _SECRET_ to _.env_ file

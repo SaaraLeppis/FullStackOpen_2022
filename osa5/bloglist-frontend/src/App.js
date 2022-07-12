@@ -15,9 +15,6 @@ const App = () => {
   // token will be saved to user
   const [user, setUser] = useState('')
   const [notification, setNotification] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -65,57 +62,19 @@ const App = () => {
     setUser('')
   }
 
-  const handleCreate = (event) => {
-    event.preventDefault()
-    console.log(event.target)
-    blogService.create({
-      title: title,
-      author: author,
-      url: url,
-      likes: 0
-    })
+  const addBlog = (newBlogObject) => {
+    blogService.create(newBlogObject)
       .then(returnedNote => {
         // as in material 
         // setBlogs([blogs.concat(returnedNote)])
         // as learned with spread operator
         setBlogs([...blogs, returnedNote])
       })
-    setNotification({ type: 'note', message: `new blog ${title} by ${author} added` })
+    setNotification({ type: 'note', message: `new blog ${newBlogObject.title} by ${newBlogObject.author} added` })
     setTimeout(() => {
       setNotification(null)
     }, 3000)
-
-    setTitle('')
-    setAuthor('')
-    setUrl('')
   }
-
-
-  // const logIn = () => {
-  //   return (
-  //     <div className='log_in'>
-  //       <h2>Log in to application</h2>
-  //       <form onSubmit={addUsername}>
-  //         <div className='inputs-wrapper'>
-  //           <label for="username">Username:</label>
-  //           <input
-  //             type="text"
-  //             id="username"
-  //             value={username}
-  //             onChange={addUsername}
-  //           />
-  //           <label for="password">Password: </label>
-  //           <input
-  //             type='password'
-  //             id="password"
-
-  //           // onChange={numberChange} 
-  //           />
-  //         </div>
-  //       </form>
-  //       <button type="submit">login</button>
-  //     </div>)
-  // }
 
   return (
     <div className='content-wrapper'>
@@ -138,13 +97,13 @@ const App = () => {
           {
             <Togglable buttonLabel='create blog'>
               <CreateForm
-                handleCreate={handleCreate}
-                title={title}
-                setTitle={setTitle}
-                author={author}
-                setAuthor={setAuthor}
-                url={url}
-                setUrl={setUrl}
+                createBlog={addBlog}
+              // title={title}
+              // setTitle={setTitle}
+              // author={author}
+              // setAuthor={setAuthor}
+              // url={url}
+              // setUrl={setUrl}
               />
             </Togglable>}
           {blogs.map(blog =>

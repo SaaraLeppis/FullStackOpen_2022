@@ -6,6 +6,7 @@ import loginService from './services/login'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import CreateForm from './components/CreateForm'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -118,13 +119,15 @@ const App = () => {
 
   return (
     <div className='content-wrapper'>
-      {!user && <LoginForm
-        username={username}
-        password={password}
-        handleLogin={handleLogin}
-        addUsername={addUsername}
-        addPassword={addPassword}
-        notification={notification} />}
+      {!user &&
+        <LoginForm
+          username={username}
+          password={password}
+          handleLogin={handleLogin}
+          addUsername={addUsername}
+          addPassword={addPassword}
+          notification={notification} />
+      }
 
       {user &&
         <div>
@@ -132,15 +135,18 @@ const App = () => {
           {notification && <Notification message={notification} />}
           <p>{user.name} logged in</p>
           <button value="logout" onClick={logOutHandler}>logout</button>
-          {<CreateForm
-            handleCreate={handleCreate}
-            title={title}
-            setTitle={setTitle}
-            author={author}
-            setAuthor={setAuthor}
-            url={url}
-            setUrl={setUrl}
-          />}
+          {
+            <Togglable buttonLabel='create blog'>
+              <CreateForm
+                handleCreate={handleCreate}
+                title={title}
+                setTitle={setTitle}
+                author={author}
+                setAuthor={setAuthor}
+                url={url}
+                setUrl={setUrl}
+              />
+            </Togglable>}
           {blogs.map(blog =>
             <Blog key={blog.id} blog={blog} />
           )}

@@ -19,5 +19,13 @@ const create = async newBlogObject => {
   return response.data
 
 }
+const addLike = async updateBlogObject => {
+  const response = await axios.put(`${baseUrl}/${updateBlogObject.id}`, updateBlogObject)
+  return response.data
+}
+const deleteBlog = async blogId => {
 
-export default { getAll, create, setToken }
+  await axios.delete(`${baseUrl}/${blogId}`)
+}
+
+export default { getAll, create, setToken, addLike, deleteBlog }

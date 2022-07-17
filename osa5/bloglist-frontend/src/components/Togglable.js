@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-
+import React, { useState } from 'react'
 
 const Togglable = (props) => {
   const [visible, setVisible] = useState(false)
@@ -21,7 +20,7 @@ const Togglable = (props) => {
       </div>
 
     </div>
-  );
-};
+  )
+}
 
-export default Togglable;
+export default Togglable

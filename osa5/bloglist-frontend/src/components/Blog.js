@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 
 const Blog = ({ blog, addLike, user, deleteBlog }) => {
@@ -11,7 +11,6 @@ const Blog = ({ blog, addLike, user, deleteBlog }) => {
       likes: blog.likes + 1,
       id: blog.id
     })
-
   }
   return (
     < div >

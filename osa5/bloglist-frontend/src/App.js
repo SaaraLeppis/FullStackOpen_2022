@@ -48,13 +48,13 @@ const App = () => {
         setUsername('')
         setPassword('')
       } catch (exception) {
-        setNotification({ type: "error", message: 'wrong credentials' })
+        setNotification({ type: 'error', message: 'wrong credentials' })
         setTimeout(() => {
           setNotification(null)
         }, 3000)
       }
     } else {
-      setNotification({ type: "error", message: 'check username and password' })
+      setNotification({ type: 'error', message: 'check username and password' })
       setTimeout(() => {
         setNotification(null)
       }, 3000)
@@ -70,7 +70,7 @@ const App = () => {
   const addBlog = async (newBlogObject) => {
     try {
       const newBlog = await blogService.create(newBlogObject)
-      // as in material 
+      // as in material
       // setBlogs([blogs.concat(returnedBlog)])
       // as learned with spread operator
       // setBlogs([...blogs, newBlog])
@@ -79,7 +79,7 @@ const App = () => {
       user.blogs.push(newBlog.id)
     }
     catch (exception) {
-      setNotification({ type: "error", message: 'something went wrong' })
+      setNotification({ type: 'error', message: 'something went wrong' })
       setTimeout(() => {
         setNotification(null)
       }, 3000)
@@ -113,7 +113,7 @@ const App = () => {
       }
     }
     catch (exception) {
-      setNotification({ type: "error", message: 'something went wrong' })
+      setNotification({ type: 'error', message: 'something went wrong' })
       setTimeout(() => {
         setNotification(null)
       }, 3000)

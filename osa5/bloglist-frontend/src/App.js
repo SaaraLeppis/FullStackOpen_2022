@@ -163,7 +163,6 @@ const App = () => {
             .map(blog =>
               <Blog key={blog.id} blog={blog} addLike={addLike} user={user} deleteBlog={deleteHandler} />
             )}
-
         </div>
       }
     </div>

@@ -14,11 +14,11 @@ const Blog = ({ blog, addLike, user, deleteBlog }) => {
   }
   return (
     < div >
-      {blog.title} {blog.author} {blog.likes}
-      <button value={blog} onClick={updateBlog} > Like</button>
-      {user.blogs.includes(blog.id) &&
-        <button value={blog.id} onClick={() => deleteBlog(blog)}> Delete</button>
-      }
+      <li className='blog'>{blog.title} {blog.author}
+        <button value={blog} onClick={updateBlog} > Like</button>
+        {user.blogs.includes(blog.id) &&
+          <button value={blog.id} onClick={() => deleteBlog(blog)}> Delete</button>
+        }</li>
     </div >
   )
 }

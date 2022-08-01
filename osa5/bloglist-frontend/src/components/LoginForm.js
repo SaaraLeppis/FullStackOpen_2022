@@ -27,10 +27,10 @@ const LoginForm = ({ notification, handleLogin, username, password, addUsername,
           />
         </div>
         <div>
-          <button type="submit">login</button>
+          <button id="login-button" type=" submit">login</button>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   )
 }
 LoginForm.propTypes = {

@@ -1,9 +1,9 @@
-import React from "react"
+import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Blog from "./Blog"
-import CreateForm from "./CreateForm"
+import Blog from './Blog'
+import CreateForm from './CreateForm'
 
 describe('Bloglist tests', () => {
   const blog = {
@@ -22,7 +22,7 @@ describe('Bloglist tests', () => {
 
     const author = screen.getByText(blog.author, { exact: false })
     expect(author).toBeDefined()
-    // alternative to use .findByText but needs async/await as returns Promise. 'exact' not needed. 
+    // alternative to use .findByText but needs async/await as returns Promise. 'exact' not needed.
 
     const url = screen.queryByText(blog.url)
     expect(url).toBeNull()

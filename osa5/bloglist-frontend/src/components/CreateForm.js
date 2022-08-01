@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const CreateForm = ({ createBlog }) => {
   const [title, setTitle] = useState('')
@@ -43,10 +43,10 @@ const CreateForm = ({ createBlog }) => {
           value={url}
           onChange={({ target }) => setUrl(target.value)}
         />
-        <button type="submit">create</button>
+        <button id='create' type="submit">create</button>
       </form>
     </div>
   )
-};
+}
 
-export default CreateForm;
+export default CreateForm

@@ -1,4 +1,4 @@
-# Osa 6
+# Osa 6 / UNICAFE - REDUX
 
 ## Getting started with state management and REDUX
 
@@ -11,7 +11,7 @@ git clone https://github.com/fullstack-hy2020/unicafe-redux
 removed git
 
 ```shell
-git -rf .git
+rm -rf .git
 ```
 
 To see hidden files

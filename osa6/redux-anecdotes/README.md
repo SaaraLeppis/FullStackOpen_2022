@@ -1,6 +1,6 @@
 # Osa 6 / ANECDOTES - REDUX
 
-## Getting started with state management and REDUX
+## State management, Redux and React-Redux
 
 Cloned repo
 
@@ -13,3 +13,14 @@ removed git
 ```shell
 rm -rf .git
 ```
+
+Install react-redux
+
+```shell
+npm install react-redux
+```
+
+### Remember
+
+- wrap App with Provider
+- use useDispatch-hook instead of dispatch-function

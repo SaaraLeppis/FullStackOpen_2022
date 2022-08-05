@@ -3,7 +3,9 @@ import { createVote } from '../reducers/anecdoteReducer'
 
 const AnecdoteList = () => {
   const dispatch = useDispatch()
-  const anecdotes = useSelector(state => state)
+
+  const anecdotes = useSelector(state => state.magic)
+
   const vote = (id) => {
     dispatch(createVote(id))
   }
@@ -12,14 +14,14 @@ const AnecdoteList = () => {
     <div>
       {
         anecdotes.sort((a, b) => a.votes < b.votes ? 1 : -1)
-          .map(anecdote =>
-            <div key={anecdote.id}>
+          .map(item =>
+            <div key={item.id}>
               <div>
-                {anecdote.content}
+                {item.content}
               </div>
               <div>
-                has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id)}>vote</button>
+                has {item.votes}
+                <button onClick={() => vote(item.id)}>vote</button>
               </div>
             </div>
           )}

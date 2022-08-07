@@ -1,53 +1,73 @@
-const anecdotesAtStart = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
+import { createSlice } from '@reduxjs/toolkit'
 
-const getId = () => (100000 * Math.random()).toFixed(0)
+import anecdoteService from '../services/anecdotes'
+// const anecdotesAtStart = [
+//   // 'If it hurts, do it more often',
+//   // 'Adding manpower to a late software project makes it later!',
+//   // 'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+//   // 'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+//   // 'Premature optimization is the root of all evil.',
+//   // 'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
+// ]
 
-const asObject = (anecdote) => {
-  return {
-    content: anecdote,
-    id: getId(),
-    votes: 0
-  }
-}
+// const getId = () => (100000 * Math.random()).toFixed(0)
 
-const initialState = anecdotesAtStart.map(asObject)
+// const asObject = (anecdote) => {
+//   return {
+//     content: anecdote,
+//     id: getId(),
+//     votes: 0
+//   }
+// }
 
-const anecdoteReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'VOTE':
-      const itemToChange = state.find(item => item.id === action.payload.id)
+// const initialState = anecdotesAtStart.map(asObject)
+
+
+const initialState = []
+
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    vote(state, action) {
+      const id = action.payload
+      const itemToChange = state.find(item => item.id === id)
       const changedItem = { ...itemToChange, votes: itemToChange.votes + 1 }
       return state
-        .map(item => item.id === action.payload.id ? changedItem : item)
-
-    case 'ADD_NEW':
-      const newAnecdote = asObject(action.payload.content)
-      return [...state, newAnecdote]
-
-    default:
+        .map(item => item.id === id ? changedItem : item)
+    },
+    addNew(state, action) {
+      const newAnecdote = action.payload
+      state.push(newAnecdote)
       return state
+    },
+    setList(state, action) {
+      return action.payload
+    }
+  }
+})
+
+export const { vote, addNew, setList } = anecdoteSlice.actions
+// * with Redux Thunk * 
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch(setList(anecdotes))
+  }
+}
+export const createNewAnecdote = (content) => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch(addNew(newAnecdote))
+
+  }
+}
+export const increaseVote = (content) => {
+
+  return async dispatch => {
+    const something = await anecdoteService.addVote(content)
+    dispatch(vote(something.id))
   }
 }
 
-export const createAnecdote = (content) => {
-  return {
-    type: 'ADD_NEW',
-    payload: { content }
-  }
-}
-
-export const createVote = (id) => {
-  return {
-    type: 'VOTE',
-    payload: { id }
-  }
-}
-
-export default anecdoteReducer
+export default anecdoteSlice.reducer

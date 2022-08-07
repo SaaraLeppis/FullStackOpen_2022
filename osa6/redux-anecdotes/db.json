@@ -54,6 +54,11 @@
       "content": "How is life today",
       "id": "46835",
       "votes": 0
+    },
+    {
+      "content": "Redux thunk is great",
+      "id": "43506",
+      "votes": 0
     }
   ]
 }

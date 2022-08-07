@@ -2,18 +2,22 @@ import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
 import Notification from './components/Notification'
 import Filter from './components/Filter'
-import anecdoteService from './services/anecdotes'
 
 import { useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
-import { setList } from './reducers/anecdoteReducer'
+import { useEffect } from 'react'
+import { initializeAnecdotes } from './reducers/anecdoteReducer'
 
 const App = () => {
   const dispatch = useDispatch()
+  // useEffect(() => {
+  //   anecdoteService.getAll().then(data =>
+  //     dispatch(setList(data))
+  //   )
+  // }, [dispatch])
+
+  //* with Redux Thunk *
   useEffect(() => {
-    anecdoteService.getAll().then(data =>
-      dispatch(setList(data))
-    )
+    dispatch(initializeAnecdotes())
   }, [dispatch])
   return (
     <div>

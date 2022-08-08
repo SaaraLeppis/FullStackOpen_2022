@@ -3,7 +3,7 @@
     {
       "content": "If it hurts, do it more often",
       "id": "47145",
-      "votes": 0
+      "votes": 2
     },
     {
       "content": "Adding manpower to a late software project makes it later!",
@@ -34,6 +34,11 @@
       "content": "If you feel sleepy, go to sleep",
       "id": "93508",
       "votes": 1
+    },
+    {
+      "content": "First learn computer science and all the theory. Next, develop a programming style. Then forget all that and just hack.",
+      "id": "63193",
+      "votes": 2
     }
   ]
 }

@@ -3,7 +3,6 @@ import { connect } from "react-redux"
 
 
 const Notification = (props) => {
-  console.log('props', props)
   const style = {
     border: 'solid',
     padding: 10,

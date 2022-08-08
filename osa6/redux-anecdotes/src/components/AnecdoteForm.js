@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { createNewAnecdote } from '../reducers/anecdoteReducer'
 import { setNote } from '../reducers/notificationReducer'
 import { connect } from 'react-redux';
@@ -33,9 +33,7 @@ const AnecdoteForm = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  console.log(state)
   return state
-
 }
 
 const mapDispatchToProps = {

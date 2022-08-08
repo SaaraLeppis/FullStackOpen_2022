@@ -17,7 +17,6 @@ const addVote =
     const anecdoteObject = { ...content, votes: content.votes + 1 }
 
     const response = await axios.put(`${baseUrl}/${content.id}`, anecdoteObject)
-    console.log(response.data);
     return response.data
   }
 

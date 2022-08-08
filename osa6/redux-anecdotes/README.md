@@ -32,7 +32,7 @@ npm install @reduxjs/toolkit
 ```
 
 - configureStore
-- createSlice
+- createSlice: combines reducer and action creators (state.push can be used in createSlice)
 
 ## Redux Thunk
 
@@ -43,3 +43,13 @@ npm install redux-thunk
 - makes possible to define action creators which return functions instead of objects
 - dispatch and getState are functions' parameters
 - asyncronous action creators can be created
+
+## connect -function
+
+```js
+import { connect } from "react-edux";
+```
+
+- old style which replaced by _useSelector_ and _useDispatch_
+- _useSelector_ replaced by _mapStateToProps_-function
+- _useDispatch_ replaced by _mapDispatchToProps_ -function

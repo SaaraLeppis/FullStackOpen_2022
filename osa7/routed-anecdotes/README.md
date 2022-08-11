@@ -21,3 +21,7 @@ components which will be rendered based on the URL are defined with component <R
 - in above if URL path is /notes, Notes -element will be rendered
 
 Components which will be rendered based on url are placed inside <Routes> -component (inside the <Router>)
+
+## Remember
+
+Spread operator: const some= {a:1, b:2, c:3}, const {a, ...withoutA}=some, (withoutA is now {b:2, c:3})

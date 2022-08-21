@@ -10,11 +10,10 @@ describe('Bloglist tests', () => {
     title: 'test blog',
     author: 'Test author',
     url: 'www.urli.fi',
-    likes: 2
+    likes: 2,
   }
   const user = { blogs: [123, 345] }
   test('Test 1: Blog renders blog.title and blog.author, does not render url and likes', () => {
-
     render(<Blog blog={blog} user={user} />)
 
     const title = screen.getByText(blog.title, { exact: false })
@@ -32,18 +31,14 @@ describe('Bloglist tests', () => {
   })
 
   test('Test 2: clicking \'Like\' button twice calls \'addLike\'-props twice', async () => {
-
     const mockHandler = jest.fn()
 
-    render(
-      <Blog blog={blog} user={user} addLike={mockHandler} />
-    )
+    render(<Blog blog={blog} user={user} addLike={mockHandler} />)
     const handler = userEvent.setup()
     const button = screen.getByText('Like')
     await handler.dblClick(button)
 
     expect(mockHandler.mock.calls).toHaveLength(2)
-
   })
   test('Test 3: <CreateForm /> props uses correct information when creating form', async () => {
     const handler = userEvent.setup()

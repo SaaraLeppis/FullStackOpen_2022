@@ -10,13 +10,12 @@ const CreateForm = ({ createBlog }) => {
       title: title,
       author: author,
       url: url,
-      likes: 0
+      likes: 0,
     })
     setTitle('')
     setAuthor('')
     setUrl('')
   }
-
 
   return (
     <div className="create">
@@ -43,7 +42,9 @@ const CreateForm = ({ createBlog }) => {
           value={url}
           onChange={({ target }) => setUrl(target.value)}
         />
-        <button id='create' type="submit">create</button>
+        <button id="create" type="submit">
+          create
+        </button>
       </form>
     </div>
   )

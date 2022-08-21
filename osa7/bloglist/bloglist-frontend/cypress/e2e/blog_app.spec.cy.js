@@ -4,7 +4,7 @@ describe('Blog app', function () {
     const user = {
       name: 'Maija Mustikka',
       username: 'Marja',
-      password: 'forrest'
+      password: 'forrest',
     }
     cy.request('POST', 'http://localhost:3003/api/users/', user)
     cy.visit('http://localhost:3000')
@@ -66,7 +66,6 @@ describe('Blog app', function () {
         cy.get('#author').type('Matti Kolmas')
         cy.get('#url').type('www.somec.fi')
         cy.get('#create').click()
-
       })
       it('one of those can be liked', function () {
         cy.contains('Second new berries Maija Toka').contains('Like').click()
@@ -79,5 +78,3 @@ describe('Blog app', function () {
     })
   })
 })
-
-

@@ -1,3 +1,9 @@
+# _**This section copied from part 5**_
+
+- Prettier added, all done settings & configurations can be easily found from [Prettier's web page](https://prettier.io/)
+
+Following texts related to original code (part 5)
+
 ## GIT commands to remember
 
 **don't panic if something goes wrong**
